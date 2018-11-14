@@ -1,0 +1,19 @@
+{
+  "database": {
+    "host": "",
+    "port": "5432",
+    "user": "",
+    "pass": "",
+    "name": ""
+  },
+  "redis": {
+    "maxActive": 10,
+    "maxIdle": 30,
+    "host": "localhost",
+    "port": "6379"
+  },
+  "mq": {
+    "defaultConsumerMaxAttempts": 3,
+    "defaultConsumerMaxInFlight": 10
+  }
+}
