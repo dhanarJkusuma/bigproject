@@ -21,5 +21,5 @@ localhost:8080
 Library that I've used for coding
 - [HttpRouter](https://github.com/julienschmidt/httprouter)
 - [viper](https://github.com/spf13/viper)
-- [redigo](https://github.com/garyburd/redigo)
-- [go-nsq](github.com/nsqio/go-nsq)
+- [redigo](https://github.com/gomodule/redigo)
+- [go-nsq](https://github.com/nsqio/go-nsq)
