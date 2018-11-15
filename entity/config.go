@@ -2,6 +2,8 @@ package entity
 
 
 type Config struct {
+	AppPort string
+	AppHost string
 	DBHost 	string
 	DBPort	string
 	DBUser	string

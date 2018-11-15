@@ -63,6 +63,10 @@
             var isSearch = false;
             var debounceSearch = _.debounce(search, 200);
 
+            $(document).ready(function(){
+                hitVisitor();
+            })
+
             setInterval(function() {
                 $('#time').text(new Date());
             }, 1000);
@@ -85,10 +89,10 @@
                 ordering: false,
                 ajax: function (data, callback, settings) {
                     var page = (data.start/data.length);
-                    var url = 'http://localhost:8080/users?page=' + page + '&size=' + data.length;
+                    var url = {{ .Host }} + ':' + {{ .Port }} + '/users?page=' + page + '&size=' + data.length;
                     if(isSearch){
                         var query = $('#search-form').val();
-                        url = 'http://localhost:8080/users/search?page=' + page + '&size=' + data.length + '&q=' + query;
+                        url = {{ .Host }} + ':' + {{ .Port }} + '/users/search?page=' + page + '&size=' + data.length + '&q=' + query;
                     }
 
 
@@ -134,9 +138,16 @@
             }
 
             function retrieveVisitorCount(){
-                var url = "http://localhost:8080/visitor";
+                var url = {{ .Host }} + ':' + {{ .Port }} + "/visitor";
                 $.get(url, function( data ) {
                     $('#count').text(data.count);
+                }, "json" );
+            }
+
+            function hitVisitor(){
+                var url = {{ .Host }} + ':' + {{ .Port }} + "/visitor";
+                $.post(url, function( data ) {
+                    console.log('Send visitor count...')
                 }, "json" );
             }
 

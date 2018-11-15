@@ -16,7 +16,9 @@ func HTMLRender(w http.ResponseWriter, r *http.Request, name string, data map[st
 }
 
 func JSONRender(w http.ResponseWriter, data interface{}) {
-	w.Header().Set("Access-Control-Allow-Methods", "POST, GET")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
 	b, err := json.Marshal(data)
 	if err != nil {

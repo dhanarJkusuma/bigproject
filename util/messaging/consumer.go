@@ -17,7 +17,7 @@ func NewConsumer(opt Options) *Consumer {
 }
 
 // RegisterConsumer function create a new consumer based on given option, and register it to Engine's consumer
-func (e *Consumer) RegisterConsumer(opt ConsumerOptions) error {
+func (e *Consumer) RegisterConsumer(opt *ConsumerOptions) error {
 	var (
 		conf *nsq.Config
 		cons *nsq.Consumer
@@ -29,7 +29,7 @@ func (e *Consumer) RegisterConsumer(opt ConsumerOptions) error {
 	conf.MaxInFlight = opt.MaxInFlight
 
 	// add given topic with prefix
-	prefixedTopic := e.opt.Prefix + opt.Topic
+	prefixedTopic :=  opt.Topic
 
 	cons, err = nsq.NewConsumer(prefixedTopic, opt.Channel, conf)
 	if err != nil {
@@ -50,7 +50,7 @@ func (e *Consumer) GetConsumersNumber() int {
 // RunConsumer function connect registered consumer to nsqd
 // please note that you have to run this on blocking routine
 func (e *Consumer) RunConsumer() {
-
+	log.Println("[BigProject] : Running MQ ")
 	if e.GetConsumersNumber() < 1 {
 		log.Fatal(errors.New("no consumer registered"))
 	}

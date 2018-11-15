@@ -6,7 +6,6 @@ import (
 	"bigproject/util/parser"
 	"database/sql"
 	"fmt"
-	"log"
 	"strings"
 	"time"
 )
@@ -20,9 +19,7 @@ func (um *UserModule) FetchData(page, size int) []entity.User {
 	const querySelect = `SELECT user_id, full_name, msisdn, user_email, COALESCE (birth_date, NOW()), AGE(NOW(), COALESCE (birth_date, NOW())) as age FROM ws_user ORDER BY full_name ASC LIMIT $1 OFFSET $2`
 
 	result, err := um.DB.Query(querySelect, size, offset)
-	if err != nil {
-		log.Printf("[BigProject] : Error %v\n", err.Error())
-	}
+	nonpanic.HandleDBError(err)
 
 	data := []entity.User{}
 	for result.Next() {
@@ -31,9 +28,8 @@ func (um *UserModule) FetchData(page, size int) []entity.User {
 		var date time.Time
 
 		err = result.Scan(&id, &fullname, &msisdn, &email, &birthDate, &age)
-		if err != nil {
-			log.Printf("[BigProject] : Error %v\n", err.Error())
-		}
+		nonpanic.HandleParsingDBValueError(err)
+
 		user := entity.User{}
 		user.UserID = id
 		user.FullName = fullname
@@ -65,16 +61,12 @@ func (um *UserModule) FetchCount() int {
 	const querySelect = `SELECT count(*) FROM ws_user`
 
 	result, err := um.DB.Query(querySelect)
-	if err != nil {
-		log.Printf("[BigProject] : Error %v\n", err.Error())
-	}
+	nonpanic.HandleDBError(err)
 
 	var count int
 	for result.Next() {
 		err = result.Scan(&count)
-		if err != nil {
-			log.Printf("[BigProject] : Error %v\n", err.Error())
-		}
+		nonpanic.HandleParsingDBValueError(err)
 	}
 	return count
 }
@@ -84,9 +76,7 @@ func (um *UserModule) FetchSearch(page, size int, keyword string)[]entity.User {
 	const querySelect = `SELECT user_id, full_name, msisdn, user_email, COALESCE(birth_date, NOW()), AGE(NOW(), COALESCE (birth_date, NOW())) as age FROM ws_user WHERE lower(full_name) LIKE $1 ORDER BY full_name ASC LIMIT $2 OFFSET $3`
 
 	result, err := um.DB.Query(querySelect, fmt.Sprintf("%%%s%%", strings.ToLower(keyword)), size, offset)
-	if err != nil {
-		log.Printf("[BigProject] : Error %v\n", err.Error())
-	}
+	nonpanic.HandleDBError(err)
 
 	data := []entity.User{}
 	for result.Next() {
@@ -95,9 +85,8 @@ func (um *UserModule) FetchSearch(page, size int, keyword string)[]entity.User {
 		var date time.Time
 
 		err = result.Scan(&id, &fullname, &msisdn, &email, &birthDate, &age)
-		if err != nil {
-			log.Printf("[BigProject] : Error %v\n", err.Error())
-		}
+		nonpanic.HandleParsingDBValueError(err)
+
 		user := entity.User{}
 		user.UserID = id
 		user.FullName = fullname
@@ -129,16 +118,12 @@ func (um *UserModule) FetchCountSearch(keyword string) int {
 	const querySelect = `SELECT count(*) FROM ws_user WHERE lower(full_name) LIKE $1`
 
 	result, err := um.DB.Query(querySelect, fmt.Sprintf("%%%s%%", strings.ToLower(keyword)))
-	if err != nil {
-		log.Printf("[BigProject] : Error %v\n", err.Error())
-	}
+	nonpanic.HandleDBError(err)
 
 	var count int
 	for result.Next() {
 		err = result.Scan(&count)
-		if err != nil {
-			log.Printf("[BigProject] : Error %v\n", err.Error())
-		}
+		nonpanic.HandleParsingDBValueError(err)
 	}
 	return count
 }

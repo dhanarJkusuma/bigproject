@@ -27,7 +27,7 @@ func (vm *VisitorModule) IncrementCount() {
 	redisCon := vm.pool.Get()
 	defer redisCon.Close()
 
-	res, _ := redisCon.Do("SET", "hello", "world")
+	res, _ := redisCon.Do("INCR", "BIGPROJECT_VISITOR")
 	log.Println("[BigProject] : Visitor increased, result : ", res)
 }
 

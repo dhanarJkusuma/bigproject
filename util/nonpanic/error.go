@@ -17,8 +17,8 @@ func HandleParsingDBValueError(err error){
 	}
 }
 
-func HandleDBConnection(err error){
+func HandleDBError(err error){
 	if err != nil {
-		log.Printf("[%v][BigProject][DB/Memory Connection Error] : %v", time.Now(), err.Error())
+		log.Printf("[%v][BigProject][DB/Memory  Error] : %v", time.Now(), err.Error())
 	}
 }

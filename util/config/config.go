@@ -18,7 +18,9 @@ func GetConfig()  entity.Config {
 		RedisHost: viper.GetString(`redis.host`),
 		RedisPort: viper.GetString(`redis.port`),
 		MQDefaultConsumerMaxAttempts: viper.GetInt(`mq.defaultConsumerMaxAttempts`),
-		MQDefaultConsumerMaxInFlight: viper.GetInt(`mq.defaultConsumerMaxInFlights`),
+		MQDefaultConsumerMaxInFlight: viper.GetInt(`mq.defaultConsumerMaxInFlight`),
+		AppPort: viper.GetString(`app.port`),
+		AppHost: viper.GetString(`app.host`),
 
 	}
 	return conf
