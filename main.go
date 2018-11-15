@@ -48,8 +48,8 @@ func main(){
 	conf := config.GetConfig()
 	log.Println("[BigProject] : Init MQ ")
 	messagingOptions := messaging.Options{
-		LookupAddress:  []string{"127.0.0.1:4161"},
-		PublishAddress: "127.0.0.1:4150",
+		LookupAddress:  []string{conf.MQLookupAddr},
+		PublishAddress: conf.MQPublishAddr,
 	}
 	ConsumeEngine := messaging.NewConsumer(messagingOptions)
 	handleIncomeMsg := func(m *nsq.Message)error {

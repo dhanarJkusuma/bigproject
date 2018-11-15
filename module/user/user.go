@@ -20,6 +20,7 @@ func (um *UserModule) FetchData(page, size int) []entity.User {
 
 	result, err := um.DB.Query(querySelect, size, offset)
 	nonpanic.HandleDBError(err)
+	defer result.Close()
 
 	data := []entity.User{}
 	for result.Next() {
@@ -62,6 +63,7 @@ func (um *UserModule) FetchCount() int {
 
 	result, err := um.DB.Query(querySelect)
 	nonpanic.HandleDBError(err)
+	defer result.Close()
 
 	var count int
 	for result.Next() {
@@ -77,6 +79,7 @@ func (um *UserModule) FetchSearch(page, size int, keyword string)[]entity.User {
 
 	result, err := um.DB.Query(querySelect, fmt.Sprintf("%%%s%%", strings.ToLower(keyword)), size, offset)
 	nonpanic.HandleDBError(err)
+	defer result.Close()
 
 	data := []entity.User{}
 	for result.Next() {
@@ -119,6 +122,7 @@ func (um *UserModule) FetchCountSearch(keyword string) int {
 
 	result, err := um.DB.Query(querySelect, fmt.Sprintf("%%%s%%", strings.ToLower(keyword)))
 	nonpanic.HandleDBError(err)
+	defer result.Close()
 
 	var count int
 	for result.Next() {

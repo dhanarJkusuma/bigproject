@@ -15,4 +15,6 @@ type Config struct {
 	RedisPort string
 	MQDefaultConsumerMaxAttempts int
 	MQDefaultConsumerMaxInFlight int
+	MQLookupAddr string
+	MQPublishAddr string
 }

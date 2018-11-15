@@ -1,23 +1,25 @@
 {
   "database": {
-    "host": "localhost",
+    "host": "db",
     "port": "5432",
-    "user": "",
-    "pass": "",
-    "name": ""
+    "user": "docker",
+    "pass": "docker",
+    "name": "bigproject_dev"
   },
   "redis": {
     "maxActive": 10,
     "maxIdle": 30,
-    "host": "localhost",
+    "host": "redis",
     "port": "6379"
   },
   "mq": {
+    "lookupAddress": "nsqlookupd:4161",
+    "publishAddress": "nsqd:4150",
     "defaultConsumerMaxAttempts": 3,
     "defaultConsumerMaxInFlight": 10
   },
   "app": {
-    "host": "localhost",
+    "host": "http://localhost",
     "port": "8080"
   }
 }
