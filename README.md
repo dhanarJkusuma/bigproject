@@ -1,6 +1,6 @@
 
 # bigproject
-A small project practice, create REST API using `Golang` + `Postgres` + `Docker` + `Redis` + `NSQ`.
+A small project practice, create Web App using `Golang` + `Postgres` + `Docker` + `Redis` + `NSQ`.
 
 
 ## How To Run
